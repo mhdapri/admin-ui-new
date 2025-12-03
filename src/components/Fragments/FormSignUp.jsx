@@ -1,15 +1,20 @@
 import React from "react";
 import LabeledInput from "../Elements/LabeledInput";
 import Button from "../Elements/Button";
+import { Link } from "react-router-dom";
 
 function FormSignUp() {
   return (
     <>
       {/* form start */}
       <div className="mt-10">
+       
+         <h1 className="text-2xl font-bold mt-3 mb-6 text-center">Create an Account</h1>
+
+     
         <form action="">
           {/* Name */}
-          <div className="mb-6">
+          <div className="mb-6 font-bold">
             <LabeledInput
               label="Name"
               id="name"
@@ -20,7 +25,7 @@ function FormSignUp() {
           </div>
 
           {/* Email */}
-          <div className="mb-6">
+          <div className="mb-6 font-bold">
             <LabeledInput
               label="Email Address"
               id="email"
@@ -31,7 +36,7 @@ function FormSignUp() {
           </div>
 
           {/* Password */}
-          <div className="mb-6">
+          <div className="mb-6 font-bold">
             <LabeledInput
               label="Password"
               id="password"
@@ -99,9 +104,9 @@ function FormSignUp() {
       <div className="flex justify-center text-sm">
         <p className="text-gray-500">
           Already have an account?{" "}
-          <a className="text-primary font-semibold cursor-pointer">
-            Sign in here
-          </a>
+          <Link to="/login" className="text-primary text-sm font-bold">
+          Sign in Here
+          </Link>
         </p>
       </div>
     </>

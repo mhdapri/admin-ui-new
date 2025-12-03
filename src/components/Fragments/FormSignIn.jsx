@@ -2,12 +2,13 @@ import React from "react";
 import LabeledInput from "../Elements/LabeledInput";
 import CheckBox from "../Elements/CheckBox";
 import Button from "../Elements/Button";
+import { Link } from "react-router-dom";
 
 function FormSignIn() {
   return (
     <>
       {/* form start */}
-      <div className="mt-16">
+      <div className="mt-16 font-bold">
         <form action="">
           <div className="mb-6">
             <LabeledInput
@@ -19,7 +20,7 @@ function FormSignIn() {
             />
             {/* input*/}
           </div>
-          <div className="mb-6">
+          <div className="mb-6 font-bold">
             <LabeledInput
               label="Password"
               id="password"
@@ -105,7 +106,9 @@ function FormSignIn() {
       {/* sign in with google end */}
       {/* link start */}
       <div className="flex justify-center">
-        <a className="text-primary text-sm font-bold">Create an account</a>
+        <Link to="/register" className="text-primary text-sm font-bold">
+        Create an account
+        </Link>
       </div>
       {/* link end */}
     </>
