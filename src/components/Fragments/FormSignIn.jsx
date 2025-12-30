@@ -3,13 +3,22 @@ import LabeledInput from "../Elements/LabeledInput";
 import CheckBox from "../Elements/CheckBox";
 import Button from "../Elements/Button";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
-function FormSignIn() {
+function FormSignIn({ onSubmit }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(email, password);
+  };
+
   return (
     <>
       {/* form start */}
       <div className="mt-16 font-bold">
-        <form action="">
+        <form onSubmit={handleSubmit}>
           <div className="mb-6">
             <LabeledInput
               label="Email Address"
@@ -17,6 +26,8 @@ function FormSignIn() {
               type="email"
               placeholder="hello@example.com"
               name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             {/* input*/}
           </div>
@@ -27,6 +38,8 @@ function FormSignIn() {
               type="password"
               placeholder="********"
               name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             {/* input*/}
           </div>
@@ -47,7 +60,7 @@ function FormSignIn() {
       {/* teks start */}
       <div className="my-9 px-7 flex flex-col justify-center items-center text-xs text-gray-03">
         <div className="border border-gray-05 w-full"></div>
-        <div class="px-2 bg-special-mainBg absolute"> or sign in with</div>
+        <div className="px-2 bg-special-mainBg absolute"> or sign in with</div>
       </div>
       {/* teks end */}
       {/* sign in with google start */}
@@ -55,9 +68,9 @@ function FormSignIn() {
         <Button type="button" variant="secondary">
           <span className="flex items-center justify-center">
             <svg
-              class="h-6 w-6 mr-2"
+              className="h-6 w-6 mr-2"
               xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
               width="800px"
               height="800px"
               viewBox="-0.5 0 48 48"
@@ -68,9 +81,9 @@ function FormSignIn() {
               <g
                 id="Icons"
                 stroke="none"
-                stroke-width="1"
+                strokeWidth="1"
                 fill="none"
-                fill-rule="evenodd"
+                fillRule="evenodd"
               >
                 <g id="Color-" transform="translate(-401.000000, -860.000000)">
                   <g id="Google" transform="translate(401.000000, 860.000000)">
@@ -107,7 +120,7 @@ function FormSignIn() {
       {/* link start */}
       <div className="flex justify-center">
         <Link to="/register" className="text-primary text-sm font-bold">
-        Create an account
+          Create an account
         </Link>
       </div>
       {/* link end */}
