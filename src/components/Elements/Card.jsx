@@ -1,7 +1,8 @@
 import React from "react";
 
 function Card(props) {
-  const { title, link = false, desc } = props;
+  // penambahan children//
+  const { title, link = false, desc, children } = props;
 
   return (
     <div className="h-full flex flex-col">
@@ -10,7 +11,7 @@ function Card(props) {
         {link && <div className="text-xs">View All</div>}
       </div>
       <div className="flex-1 bg-white rounded-lg px-6 py-5 shadow-xl">
-        {desc}
+        {children || desc}
       </div>
     </div>
   );

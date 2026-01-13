@@ -2,61 +2,112 @@ import React from "react";
 import LabeledInput from "../Elements/LabeledInput";
 import Button from "../Elements/Button";
 import { Link } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
-function FormSignUp() {
+const SignUpSchema = Yup.object().shape({
+  name: Yup.string().required("Nama wajib diisi"),
+  email: Yup.string().email("Email tidak valid").required("Email wajib diisi"),
+  password: Yup.string()
+    .min(6, "Password minimal 6 karakter")
+    .required("Password wajib diisi"),
+});
+
+function FormSignUp({ onSubmit }) {
   return (
     <>
       {/* form start */}
       <div className="mt-10">
-       
-         <h1 className="text-2xl font-bold mt-3 mb-6 text-center">Create an Account</h1>
+        <h1 className="text-2xl font-bold mt-3 mb-6 text-center">
+          Create an Account
+        </h1>
 
-     
-        <form action="">
-          {/* Name */}
-          <div className="mb-6 font-bold">
-            <LabeledInput
-              label="Name"
-              id="name"
-              type="text"
-              placeholder="Tanzir Rahman"
-              name="name"
-            />
-          </div>
+        <Formik
+          initialValues={{
+            name: "",
+            email: "",
+            password: "",
+          }}
+          validationSchema={SignUpSchema}
+          onSubmit={async (values, { setSubmitting }) => {
+            try {
+              await onSubmit(values.name, values.email, values.password);
+            } finally {
+              setSubmitting(false);
+            }
+          }}
+        >
+          {({ isSubmitting }) => (
+            <Form>
+              {/* Name */}
+              <div className="mb-6 font-bold">
+                <Field name="name">
+                  {({ field }) => (
+                    <LabeledInput
+                      {...field}
+                      label="Name"
+                      id="name"
+                      type="text"
+                      placeholder="Tanzir Rahman"
+                    />
+                  )}
+                </Field>
+                <ErrorMessage
+                  name="name"
+                  component="p"
+                  className="text-red-500 text-xs mt-1"
+                />
+              </div>
 
-          {/* Email */}
-          <div className="mb-6 font-bold">
-            <LabeledInput
-              label="Email Address"
-              id="email"
-              type="email"
-              placeholder="hello@example.com"
-              name="email"
-            />
-          </div>
+              {/* Email */}
+              <div className="mb-6 font-bold">
+                <Field name="email">
+                  {({ field }) => (
+                    <LabeledInput
+                      {...field}
+                      label="Email Address"
+                      id="email"
+                      type="email"
+                      placeholder="hello@example.com"
+                    />
+                  )}
+                </Field>
+                <ErrorMessage
+                  name="email"
+                  component="p"
+                  className="text-red-500 text-xs mt-1"
+                />
+              </div>
 
-          {/* Password */}
-          <div className="mb-6 font-bold">
-            <LabeledInput
-              label="Password"
-              id="password"
-              type="password"
-              placeholder="********"
-              name="password"
-            />
-          </div>
+              {/* Password */}
+              <div className="mb-6 font-bold">
+                <Field name="password">
+                  {({ field }) => (
+                    <LabeledInput
+                      {...field}
+                      label="Password"
+                      id="password"
+                      type="password"
+                      placeholder="********"
+                    />
+                  )}
+                </Field>
+                <ErrorMessage
+                  name="password"
+                  component="p"
+                  className="text-red-500 text-xs mt-1"
+                />
+              </div>
 
-          {/* Terms */}
-          <p className="text-xs text-gray-500 mb-4">
-            By continuing, you agree to our{" "}
-            <a className="text-primary font-semibold cursor-pointer">
-              terms of service.
-            </a>
-          </p>
+              {/* Terms */}
 
-          {/* Sign up button */}
-          <Button type="submit">Sign up</Button>
-        </form>
+              {/* Sign up button */}
+              <Button type="submit">
+                {isSubmitting ? "Loading..." : "Register"}
+              </Button>
+            </Form>
+          )}
+        </Formik>
       </div>
       {/* form end */}
 
@@ -105,7 +156,7 @@ function FormSignUp() {
         <p className="text-gray-500">
           Already have an account?{" "}
           <Link to="/login" className="text-primary text-sm font-bold">
-          Sign in Here
+            Sign in Here
           </Link>
         </p>
       </div>

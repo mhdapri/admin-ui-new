@@ -19,3 +19,22 @@ export const goalService = async () => {
     };
   }
 };
+
+export const expenseService = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await axios.get(`${API_URL}/expenses`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log("API response:", response.data);
+    return response.data.data || response.data;
+  } catch (error) {
+    throw {
+      status: error.response?.status,
+      msg: error.response?.data?.msg,
+    };
+  }
+};
